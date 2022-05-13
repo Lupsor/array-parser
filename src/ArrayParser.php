@@ -4,19 +4,16 @@ namespace Lupsor\ArrayParser;
 
 class ArrayParser
 {
-    public static function parse(array $data, string $parserString)
+    protected static string $valueSeparator = ', ';
+
+    public static function parse(array $data, string $parserString): mixed
     {
         return self::get($data, Parser::generate($parserString));
     }
 
-    private static function get(array $data, Parser $parser)
+    private static function get(array $data, Parser $parser): mixed
     {
         $value = null;
-        if (count($parser) === 1) {
-            foreach ($parser as $parserItem) {
-                return $data[$parserItem];
-            }
-        }
         foreach ($parser as $parserItem) {
             if ($parserItem instanceof Parser) {
                 $concatValues = [];
@@ -33,7 +30,7 @@ class ArrayParser
         }
 
         return is_array($value)
-            ? implode(', ', $value)
+            ? implode(self::$valueSeparator, $value)
             : $value;
     }
 }

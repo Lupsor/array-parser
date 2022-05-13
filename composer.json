@@ -1,6 +1,6 @@
 {
   "name": "lupsor/array-parser",
-  "description": "description",
+  "description": "This package get data from an associative array",
   "minimum-stability": "stable",
   "license": "MIT",
   "authors": [
@@ -10,11 +10,11 @@
     }
   ],
   "require": {
-    "php": "^7.4|^8.0"
+    "php": "^7.4|^8"
   },
   "autoload": {
     "psr-4": {
-      "Lupsor\\ArrayParser": "src/"
+      "Lupsor\\ArrayParser\\": "src/"
     }
   }
 }
