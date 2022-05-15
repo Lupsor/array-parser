@@ -24,13 +24,18 @@ class ArrayParser
                 break;
             }
             if ($parser->valid()) {
-                $value = $data[$parserItem];
+                $value = self::getDataValue($data, $parserItem);
             }
-            $data = $data[$parserItem];
+            $data = self::getDataValue($data, $parserItem);
         }
 
         return is_array($value)
             ? implode(self::$valueSeparator, $value)
             : $value;
+    }
+
+    private static function getDataValue(array $data, string $key): mixed
+    {
+        return array_key_exists($key, $data) ? $data[$key] : null;
     }
 }
