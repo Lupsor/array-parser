@@ -17,8 +17,10 @@ class ArrayParser
         foreach ($parser as $parserItem) {
             if ($parserItem instanceof Parser) {
                 $concatValues = [];
-                foreach ($data as $item) {
-                    $concatValues[] = self::get($item, $parserItem);
+                if (!empty($data)) {
+                    foreach ($data as $item) {
+                        $concatValues[] = self::get($item, $parserItem);
+                    }
                 }
                 $value = array_diff($concatValues, [null]);
                 break;
