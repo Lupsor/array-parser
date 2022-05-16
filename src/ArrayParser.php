@@ -6,12 +6,12 @@ class ArrayParser
 {
     protected static string $valueSeparator = ', ';
 
-    public static function parse(array $data, string $parserString): mixed
+    public static function parse(array $data, string $parserString)
     {
         return self::get($data, Parser::generate($parserString));
     }
 
-    private static function get(array $data, Parser $parser): mixed
+    private static function get(array $data, Parser $parser)
     {
         $value = null;
         foreach ($parser as $parserItem) {
@@ -31,12 +31,16 @@ class ArrayParser
             $data = self::getDataValue($data, $parserItem);
         }
 
+        if ($parser::$unique && is_array($value)) {
+            $value = array_unique($value);
+        }
+
         return is_array($value)
             ? implode(self::$valueSeparator, $value)
             : $value;
     }
 
-    private static function getDataValue(array $data, string $key): mixed
+    private static function getDataValue(array $data, string $key)
     {
         return array_key_exists($key, $data) ? $data[$key] : null;
     }

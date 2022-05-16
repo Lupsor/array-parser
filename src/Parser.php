@@ -10,6 +10,10 @@ class Parser extends ArrayIterator
 
     protected static string $separator = '->';
 
+    protected static string $uniqueParameter = ':unique';
+
+    public static bool $unique = false;
+
     public static function generate(string $parserString): self
     {
         return new self(self::parse($parserString));
@@ -17,6 +21,11 @@ class Parser extends ArrayIterator
 
     private static function parse(string $string): array
     {
+        if (substr($string, strlen($string) - strlen(self::$uniqueParameter)) === self::$uniqueParameter) {
+            $string = substr($string, 0, -strlen(self::$uniqueParameter));
+            self::$unique = true;
+        }
+
         $arrayStartCombination = self::$separator . self::$arrayStartCharacter;
         $arrayPosition = strpos($string, $arrayStartCombination);
         if ($arrayPosition === false) {
