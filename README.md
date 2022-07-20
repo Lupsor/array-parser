@@ -12,20 +12,32 @@ This package get data from an associative array.
 
 Knowing the path to the data you need in the array, you can easily get it using `ArrayParser`, without having to iterate through the array yourself.
 
-## Setup
+## Содержание
+
+1. [Setup](#setup)
+2. [Using](#using)
+   1. [ParserString](#parserString)
+      1. [Without collection](#withoutCollection)
+      2. [With collection](#withCollection)
+   2. [Parse object](#parseObject)
+   3. [Examples of using](#examples)
+3. [Additionally](#additionally)
+   1. [Unique values](#unique)
+
+## Setup<a name="setup"></a>
 
 To install the package, run on the command line:
 ```
 composer install lupsor/array-parser
 ```
 
-## Using
+## Using<a name="using"></a>
 
 To get the desired value, run:
 `ArrayParser::parse($data, $parserString)`, where `$date` is an array from which you want to get the value, and `$parserString` is a link to the received data
 
-### ParserString
-#### Without collection
+### ParserString<a name="parserString"></a>
+#### Without collection<a name="withoutCollection"></a>
 
 Before you get the necessary data, you need to form a link to the data you need. Example: 
 
@@ -33,7 +45,7 @@ Before you get the necessary data, you need to form a link to the data you need.
 
 Based on this example, the `ArrayParser` will refer to the array element with the key `three`, there it will refer to the element with the key `one` and it will get the value of the element with the key `one`.
 
-#### With collection
+#### With collection<a name="withCollection"></a>
 
 You can also get data from the collection by wrapping the required value in square brackets (`[`, `]`). Example:
 
@@ -41,7 +53,11 @@ You can also get data from the collection by wrapping the required value in squa
 
 The collection can be more complex, like `[one->two]`. You can learn more about this structure in example No. 2 and 3.
 
-### Examples of using
+### Parse object<a name="parseObject"></a>
+
+The first argument `ArrayParser::parse` (`$data`) can be sent as an object, in which case the path must only point to functions that require no arguments.
+
+### Examples of using<a name="examples"></a>
 
 #### Example 1 (without collection)
 ```phpt
@@ -101,3 +117,8 @@ $parserString = 'five->[one->[one]]';
 ArrayParser::parse($data, $parserString);
 ```
 Result: `fiveOneOneValue, fourOneTwoValue, fiveTwoOneValue, fourTwoTwoValue, fourTwoThreeValue`
+
+## Additionally<a name="additionally"></a>
+### Unique values<a name="unique"></a>
+
+You can return only unique values by adding `:unique` at the end of `ParserString`. Example: `five->[one->[one]]:unique`
